@@ -3,7 +3,7 @@
 void main() {
  
 //In Dart, you must specify the type of a variable when declaring it,
-// and this type cannot be changed later. This is a fundamental rule in Dart because .
+// and this type cannot be changed later. This is a fundamental rule in Dart  .
 
 
   int age = 23; 
