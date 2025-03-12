@@ -1,5 +1,5 @@
 // Given the code snippet below, what will the output be? ```dart void main() { print("Dart" + " " + "Programming"); } ```
-void main (){
-print("Dart" + " " + "Programming");// "+" تقوم بدمج نصين 
+void main() {
+  print("Dart" + " " + "Programming");
 }
-// the output :Dart Programming
+
