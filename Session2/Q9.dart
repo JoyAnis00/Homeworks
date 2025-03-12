@@ -1,8 +1,11 @@
 //   Use switch for multiple cases.
 // Instructions:- Create an integer variable month with a value between 1 and 12.- Use a switch statement to print the season based on the month.
 
+import 'dart:io';
+
 void main() {
-  int month = 3;
+  stdout.write("Enter the Month:");
+  int month = int.parse(stdin.readLineSync()!);
 
   switch (month) {
     case 12:
