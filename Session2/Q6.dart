@@ -3,7 +3,7 @@
 import 'dart:io';
 
 void main() {
-  stdout.write("Enter the marks: ");
+  stdout.write("Enter the Password: ");
   String password = stdin.readLineSync()!;
 
   if (password == 'secret') {
