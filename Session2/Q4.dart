@@ -7,7 +7,7 @@ void main() {
     'city': 'New York',
   };
   print(person['age']);
-  
+
   person['city'] = 'Los Angeles';
   print(person['city']);
 }
