@@ -10,31 +10,28 @@ void main() {
   stdout.write("Enter number 2: ");
   int input2 = int.parse(stdin.readLineSync()!);
 
-  ArithmeticOperations operations = ArithmeticOperations();
-  print(operations.addition(input1, input2));
-  print(operations.subtraction(input1, input2));
-  print(operations.multiplication(input1, input2));
-  print(operations.division(input1, input2));
+  print("Addition: ${addition(input1, input2)}");
+  print("Subtraction: ${subtraction(input1, input2)}");
+  print("Multiplication: ${multiplication(input1, input2)}");
+  print("Division: ${division(input1, input2)}");
 }
 
-class ArithmeticOperations {
-  num addition(num input1, num input2, [num number = 0]) {
-    return input1 + input2 + number;
-  }
+num addition(num input1, num input2, [num number = 0]) {
+  return input1 + input2 + number;
+}
 
-  num subtraction(num input1, num input2) {
-    return input1 - input2;
-  }
+num subtraction(num input1, num input2) {
+  return input1 - input2;
+}
 
-  num multiplication(num input1, num input2) {
-    return input1 * input2;
-  }
+num multiplication(num input1, num input2) {
+  return input1 * input2;
+}
 
-  num division(num input1, num input2) {
-    if (input2 == 0) {
-      print("Error: Division by zero is not allowed");
-      exit(1);
-    }
-    return input1 / input2;
+num division(num input1, num input2) {
+  if (input2 == 0) {
+    print("Error: Division by zero is not allowed");
+    exit(1);
   }
+  return input1 / input2;
 }
