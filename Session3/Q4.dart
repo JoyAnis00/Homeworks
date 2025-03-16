@@ -1,3 +1,5 @@
+//Use Map and List to create a program that stores weather data for different cities (temperature,
+//humidity, etc.). Write a function that can retrieve and print weather details using a city name.
 import 'dart:io';
 
 void main() {
@@ -20,14 +22,14 @@ void main() {
       break;
     }
 
-    bool isFound = weatherdetails(weather, city);
+    bool isFound = getweatherdetails(weather, city);
     if (isFound == false) {
       print('City not found in the list');
     }
   }
 }
 
-bool weatherdetails(List<Map<String, dynamic>> list, String city) {
+bool getweatherdetails(List<Map<String, dynamic>> list, String city) {
   for (var element in list) {
     if (element["city"].toString().toLowerCase() == city) {
       print(
