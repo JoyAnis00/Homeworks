@@ -29,7 +29,6 @@ void main() {
 void addItem(List<String> list, {String? item}) {
   if (item == null) {
     print("No item provided to add.");
-
     return;
   }
   list.add(item.toUpperCase());
