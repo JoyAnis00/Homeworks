@@ -18,7 +18,7 @@ class LoanProcessingSystem {
 }
 
 void main() {
-  LoanProcessingSystem loanSystem =  LoanProcessingSystem();
+  LoanProcessingSystem loanSystem = LoanProcessingSystem();
   loanSystem.applyLoan(PersonalLoan('John Doe', 10000));
   loanSystem.applyLoan(HomeLoan('ABC Corp', 50000));
   loanSystem.calculateTotalInterest(12);
