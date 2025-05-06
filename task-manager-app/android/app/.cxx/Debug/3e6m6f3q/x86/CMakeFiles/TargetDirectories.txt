@@ -1,0 +1,2 @@
+D:/Dart section 1/tasks_app/android/app/.cxx/Debug/3e6m6f3q/x86/CMakeFiles/edit_cache.dir
+D:/Dart section 1/tasks_app/android/app/.cxx/Debug/3e6m6f3q/x86/CMakeFiles/rebuild_cache.dir
