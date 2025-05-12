@@ -4,7 +4,7 @@ import 'package:quiz_app/widgets/back_button.dart';
 import 'package:quiz_app/widgets/next_button.dart';
 
 class ButtonsSection extends StatelessWidget {
-  final VoidCallback onBack;
+final VoidCallback onBack;
 final VoidCallback onNext;
 final bool isSelected;
 

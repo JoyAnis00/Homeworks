@@ -1,17 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:quiz_app/styles/app_colors.dart';
 import 'package:quiz_app/styles/app_textstyle.dart';
 
 class QuestionCard extends StatelessWidget {
-  final String questionText;
+ 
   final String questionimage;
+  final int currentQuestionIndex ;
   const QuestionCard({
     super.key,
-    required this.questionText,
+
     required this.questionimage,
+    required this.currentQuestionIndex
   });
 
   @override
@@ -36,7 +37,7 @@ class QuestionCard extends StatelessWidget {
         children: [
           SvgPicture.asset(questionimage),
           SizedBox(width: 6),
-          Text(questionText, style: AppTextStyle.medium18()),
+          Text('Question $currentQuestionIndex', style: AppTextStyle.medium18()),
         ],
       ),
     );

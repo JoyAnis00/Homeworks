@@ -4,7 +4,7 @@ import 'package:quiz_app/models/questions_model.dart';
 import 'package:quiz_app/styles/app_colors.dart';
 import 'package:quiz_app/widgets/buttons_section.dart';
 import 'package:quiz_app/widgets/options_listview.dart';
-import 'package:quiz_app/widgets/qustion_card.dart';
+import 'package:quiz_app/widgets/qustion_num_card.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -47,16 +47,18 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: [
                   const SizedBox(height: 32),
                   QuestionCard(
-                    questionText: 'qustion1',
-                    questionimage: Assets.imagesQ1,
+                   
+                    questionimage: question.imagePath,
+                    currentQuestionIndex: currentQuestionIndex + 1,
                   ),
 
                   Expanded(
                     child: OptionsListview(
                       question: question,
-                      onOptionSelected: () {
+                      selectedIndex: selectedIndex,
+                      onOptionSelected: (index) {
                         setState(() {
-                          
+                          selectedIndex = index;
                           hasSelected = true;
                         });
                       },

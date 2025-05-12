@@ -8,45 +8,50 @@ class OptionsListview extends StatefulWidget {
     super.key,
     required this.question,
     required this.onOptionSelected,
+    required this.selectedIndex,
   });
 
   final Question question;
-  final void Function() onOptionSelected;
+  final void Function(int) onOptionSelected;
+  final int? selectedIndex;
 
   @override
   State<OptionsListview> createState() => _OptionsListviewState();
 }
 
 class _OptionsListviewState extends State<OptionsListview> {
-  int? selectedIndex;
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
       padding: const EdgeInsets.only(top: 30),
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 26),
-          child: Text(
-            widget.question.questionText,
-            style: AppTextStyle.medium24(),
-          ),
-        ),
-        const SizedBox(height: 32),
-    
-        for (int i = 0; i < widget.question.options.length; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: ChoiceCard(label: widget.question.options[i],
-             isSelected: selectedIndex == i,
-             onTap: () {
-              setState(() {
-                selectedIndex = i;
-              });
-              widget.onOptionSelected();
-            },
+      itemCount: widget.question.options.length + 2,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 26),
+            child: Text(
+              widget.question.questionText,
+              style: AppTextStyle.medium24(),
             ),
-          ),
-      ],
+          );
+        } else if (index == 1) {
+          return const SizedBox(height: 32);
+        } else {
+          final optionIndex = index - 2;
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ChoiceCard(
+              label: widget.question.options[optionIndex],
+              isSelected: widget.selectedIndex == optionIndex,
+              onTap: () {
+                widget.onOptionSelected(optionIndex);
+              },
+            ),
+          );
+        }
+      },
     );
   }
 }
