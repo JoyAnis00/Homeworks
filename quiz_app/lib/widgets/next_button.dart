@@ -5,11 +5,12 @@ import 'package:quiz_app/styles/app_textstyle.dart';
 class NextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isSelected;
-
+  final bool isLastQuestion;
   const NextButton({
     super.key,
     required this.onPressed,
     required this.isSelected,
+    required this.isLastQuestion
   });
 
   @override
@@ -31,7 +32,7 @@ class NextButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Next', style: AppTextStyle.regular16()),
+            Text( isLastQuestion?'Finish Quiz':'Next', style: AppTextStyle.regular16()),
             const SizedBox(width: 8),
             Icon(Icons.arrow_forward_ios, size: 19),
           ],

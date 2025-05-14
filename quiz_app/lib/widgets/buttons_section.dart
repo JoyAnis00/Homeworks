@@ -7,8 +7,8 @@ class ButtonsSection extends StatelessWidget {
 final VoidCallback onBack;
 final VoidCallback onNext;
 final bool isSelected;
-
-  const ButtonsSection({super.key, required this.onBack,required this.onNext, required this.isSelected});
+final bool isLastQuestion;
+  const ButtonsSection({super.key, required this.onBack,required this.onNext, required this.isSelected,required this.isLastQuestion});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,9 @@ final bool isSelected;
       children: [
         BackButton1(onPressed: onBack,),
         Expanded(child: SizedBox(width: 91)),
-        NextButton(onPressed:onNext, isSelected:isSelected),
+        NextButton(onPressed:onNext, isSelected:isSelected,
+        isLastQuestion: isLastQuestion
+        ),
       ],
     );
   }

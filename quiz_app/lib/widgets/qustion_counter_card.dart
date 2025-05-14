@@ -5,7 +5,7 @@ import 'package:quiz_app/styles/app_colors.dart';
 import 'package:quiz_app/styles/app_textstyle.dart';
 
 class QuestionCard extends StatelessWidget {
- 
+  
   final String questionimage;
   final int currentQuestionIndex ;
   const QuestionCard({
