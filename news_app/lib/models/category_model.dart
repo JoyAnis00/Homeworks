@@ -5,10 +5,10 @@ class CategoryModel {
 }
 
 final List<CategoryModel> categories = [
-  CategoryModel(name: 'Bussnese', categoryimage: 'assets/bussness.jpg'),
+  CategoryModel(name: 'Business', categoryimage: 'assets/business.jpg'),
   CategoryModel(name: 'Sports', categoryimage: 'assets/sports (1).jpg'),
   CategoryModel(name: 'Healthy', categoryimage: 'assets/healthy.jpg'),
-  CategoryModel(name: 'General', categoryimage: 'assets/general.jpg'),
+  CategoryModel(name: 'Technology', categoryimage: 'assets/technology.jpg'),
   CategoryModel(name: 'Science', categoryimage: 'assets/science.jpg'),
   CategoryModel(name: 'Environment', categoryimage: 'assets/environment.jpg'),
 ];

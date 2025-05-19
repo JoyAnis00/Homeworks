@@ -1,26 +1,23 @@
 // NewsListView.dart
+
 import 'package:flutter/material.dart';
-import 'news_tile.dart'; // تأكدي من المسار
+import 'package:news_app/models/articles_model.dart';
+
+import 'news_tile.dart';
 
 class NewsListView extends StatelessWidget {
-  const NewsListView({
-    super.key,
-  });
+  final List<Article> articles;
+  const NewsListView({super.key, required this.articles});
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          return NewsTile(
-            imageUrl: 'assets/news_$index.jpg',
-            title: 'News Title $index',
-            description: 'This is the description of news item number $index.',
-            date: '2025-05-07',
-          );
-        },
-        childCount: 10,
-      ),
+      delegate: SliverChildBuilderDelegate(childCount: articles.length, (
+        context,
+        index,
+      ) {
+        return NewsTile(article: articles[index]);
+      }),
     );
   }
 }
