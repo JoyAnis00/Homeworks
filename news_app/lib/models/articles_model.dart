@@ -10,5 +10,12 @@ class Article {
     this.description,
     this.urlToImage,
   });
+  factory Article.fromJson(Map<String, dynamic> json) {
+    return Article(
+      title: json['title'],
+      description: json['description'],
+      urlToImage: json['image_url'],
+    );
+  }
 
 }
