@@ -4,7 +4,7 @@ import 'package:quiz_app/constants/assets.dart';
 import 'package:quiz_app/styles/app_colors.dart';
 import 'package:quiz_app/styles/app_textstyle.dart';
 
-class ChoiceCard extends StatelessWidget {
+class ChoiceCard extends StatefulWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
@@ -17,9 +17,14 @@ class ChoiceCard extends StatelessWidget {
   });
 
   @override
+  State<ChoiceCard> createState() => _ChoiceCardState();
+}
+
+class _ChoiceCardState extends State<ChoiceCard>  {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         padding: const EdgeInsets.all(15),
@@ -27,7 +32,7 @@ class ChoiceCard extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment(0.00, 1.00),
             end: Alignment(1.00, 0.17),
-            colors: isSelected
+            colors: widget.isSelected
                 ? [const Color(0xFFB8B2FF), const Color(0xFFC6C2F7)]
                 : [AppColors.accentColor, AppColors.accentColor],
           ),
@@ -40,7 +45,7 @@ class ChoiceCard extends StatelessWidget {
               height: 22,
               padding: const EdgeInsets.all(5),
               decoration: ShapeDecoration(
-                color: isSelected ? AppColors.primaryColor : AppColors.accentColor,
+                color: widget.isSelected ? AppColors.primaryColor : AppColors.accentColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                   side: BorderSide(width: 1, color: AppColors.primaryColor),
@@ -50,7 +55,7 @@ class ChoiceCard extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Text(
-              label,
+              widget.label,
               style: AppTextStyle.regular16(color: AppColors.primaryColor),
             ),
           ],

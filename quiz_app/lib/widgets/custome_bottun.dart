@@ -18,17 +18,11 @@ class CustomButton extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onPressed,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 10,
-          children: [
-            Text(
-              text,
-              style: AppTextStyle.medium18(color: AppColors.primaryColor)
-            ),
-          ],
+        child: Center(
+          child: Text(
+            text,
+            style: AppTextStyle.medium18(color: AppColors.primaryColor)
+          ),
         ),
       ),
     );

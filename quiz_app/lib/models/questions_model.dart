@@ -5,6 +5,7 @@ class Question {
   final List<String> options;
   final int correctOptionIndex;
  final String imagePath;
+ int? selectedIndex;
   Question({
     required this.questionText,
     required this.options,

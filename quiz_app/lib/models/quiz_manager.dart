@@ -1,7 +1,7 @@
 import 'package:quiz_app/models/questions_model.dart';
 
 class QuizManager {
-  final List<Question> _questions = sampleQuestions;
+  final List<Question> _questions =  sampleQuestions ;
   int _currentQuestionIndex = 0;
   int _score = 0;
 
@@ -13,7 +13,9 @@ class QuizManager {
 
   bool get hasNextQuestion => _currentQuestionIndex < _questions.length - 1;
 
-  void answerQuestion(bool isCorrect) {
+  void answerQuestion(int selectedIndex) {
+    currentQuestion.selectedIndex = selectedIndex;
+    bool isCorrect = currentQuestion.correctOptionIndex == selectedIndex;
     if (isCorrect) {
       _score++;
     }

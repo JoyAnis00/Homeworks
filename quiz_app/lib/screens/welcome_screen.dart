@@ -16,33 +16,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor,
 
       body: Stack(
         children: [
-            Positioned.fill(child: Image.asset(Assets.imagesGradent, fit: BoxFit.cover,)),
+          Positioned.fill(
+            child: Image.asset(Assets.imagesGradent, fit: BoxFit.cover),
+          ),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Text('Good morning', style: AppTextStyle.medium16()),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text('New topic is waiting', style: AppTextStyle.medium24()),
-                 Spacer(flex: 15,),
-                  CustomButton(text: 'Start Quiz', onPressed: () {
-                    
-                       Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => QuizScreen() ,
-                      ),
+                  const Spacer(flex: 15),
+                  CustomButton(
+                    text: 'Start Quiz',
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => QuizScreen()),
                       );
-                    
-                  }),
-                 Spacer(flex: 1,)
+                    },
+                  ),
+                  const Spacer(flex: 1),
                 ],
               ),
             ),
