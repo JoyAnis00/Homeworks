@@ -6,7 +6,7 @@ class QuizManager {
   int _score = 0;
 
   QuizManager();
-
+  List<Question> get questions => _questions;
   Question get currentQuestion => _questions[_currentQuestionIndex];
 
   int get currentQuestionIndex => _currentQuestionIndex;

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/constants/assets.dart';
-
 import 'package:quiz_app/models/quiz_manager.dart';
 import 'package:quiz_app/screens/result_screen.dart';
 import 'package:quiz_app/styles/app_colors.dart';
+import 'package:quiz_app/widgets/background.dart';
 import 'package:quiz_app/widgets/buttons_section.dart';
-
 import 'package:quiz_app/widgets/qustion_counter_card.dart';
 import 'package:quiz_app/widgets/qustions_view.dart';
 
@@ -17,43 +15,38 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  // Initialize the QuizManager to manage quiz state
+  final PageController _pageController = PageController(
+    initialPage: 0,
+    keepPage: true, // يحافظ على الصفحة الحالية عند التمرير
+    viewportFraction: 1.0, // يجعل كل صفحة تأخذ العرض الكامل
+  );
   final QuizManager quizManager = QuizManager();
-  // Variable to track the selected index of the answer
-  int? selectedIndex;
+
+  int currentPageIndex = 0;
   bool hasSelected = false;
-  // Function to reset the selection state
-  // This function is called when the user selects an answer
 
-  void resetSelection() {
+  // لما المستخدم يختار إجابة
+  void onOptionSelected(int selectedIndex) {
     setState(() {
-      selectedIndex = null;
-    });
-  }
-
-  // Function to handle the selection of an answer
-  // This function is called when the user selects an answer
-  void onOptionSelected(int index) {
-    setState(() {
-      quizManager.answerQuestion(index);
+      quizManager.answerQuestion(selectedIndex);
       hasSelected = true;
     });
   }
 
-  // Function to navigate to the next question
-  // If the current question is the last one, navigate to the result screen
+  // لما المستخدم يضغط "Next"
   void goToNextQuestion() {
-    if (quizManager.hasNextQuestion) {
-      setState(() {
-        quizManager.goToNextQuestion();
-        resetSelection();
-      });
+    if (currentPageIndex < quizManager.totalQuestions - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
     } else {
+      // نهاية الكويز، نروح لشاشة النتائج
       Navigator.push(
         context,
         MaterialPageRoute(
           builder:
-              (context) => ResultScreen(
+              (_) => ResultScreen(
                 score: quizManager.score,
                 totalQuestions: quizManager.totalQuestions,
               ),
@@ -61,59 +54,71 @@ class _QuizScreenState extends State<QuizScreen> {
       );
     }
   }
-  // Function to navigate to the previous question
-  // If the current question index is 0, do nothing
 
+  // لما المستخدم يضغط "Back"
   void goToPreviousQuestion() {
-    if (quizManager.currentQuestionIndex == 0) return;
-
-    setState(() {
-      quizManager.goToPreviousQuestion();
-    });
+    if (currentPageIndex > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isLastQuestion = !quizManager.hasNextQuestion;
+    bool isLastQuestion = currentPageIndex == quizManager.totalQuestions - 1;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(Assets.imagesGradent, fit: BoxFit.cover),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 32),
-                  // Display the question counter card
-                  QuestionCard(
-                    questionimage: quizManager.currentQuestion.imagePath,
-                    currentQuestionIndex: quizManager.currentQuestionIndex + 1,
-                  ),
-                  const SizedBox(height: 20),
-                  // Display the question text and options
-                  // The QuestionTextWidget takes the current question and a callback for option selection
-                  QuestionTextWidget(
-                    question: quizManager.currentQuestion,
-                    onOptionSelected: onOptionSelected,
-                  ),
-                  const Spacer(),
-                  ButtonsSection(
-                    onBack: goToPreviousQuestion,
-                    onNext: goToNextQuestion,
-                    isSelected: hasSelected,
-                    isLastQuestion: isLastQuestion,
-                  ),
-                  const SizedBox(height: 55),
-                ],
+      body: BackgroundWrapper(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 32),
+              // كارت العدادات والسؤال الحالي
+              QuestionCard(
+                questionimage:
+                    quizManager.questions[currentPageIndex].imagePath,
+                currentQuestionIndex: currentPageIndex + 1,
               ),
-            ),
+              const SizedBox(height: 20),
+              // الـ PageView لعرض الأسئلة
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+
+                  itemCount: quizManager.totalQuestions,
+                  onPageChanged: (index) {
+                    setState(() {
+                      currentPageIndex = index;
+                      hasSelected = false; // لما نغير السؤال نرجع حالة الاختيار فاضية
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return QuestionTextWidget(
+                      question: quizManager.questions[index],
+                      onOptionSelected: (selectedIndex) {
+                        onOptionSelected(selectedIndex);
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
+              // أزرار التحكم: Back و Next
+              ButtonsSection(
+                onBack: goToPreviousQuestion,
+                onNext: goToNextQuestion,
+                isSelected: hasSelected,
+                isLastQuestion: isLastQuestion,
+              ),
+              const SizedBox(height: 55),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
