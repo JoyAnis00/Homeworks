@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/models/category_model.dart';
 import 'package:news_app/screens/categary_screen.dart';
 
+import '../styles/app_textstyle.dart';
+
 
 class CategoryCard extends StatelessWidget {
  final CategoryModel categoryModel;
@@ -47,11 +49,7 @@ class CategoryCard extends StatelessWidget {
               Center(
                 child: Text(
                   categoryModel.name,
-                  style: TextStyle(
-                    fontSize: 26,
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: AppTextStyle.headline2(color: Colors.white),
                 ),
               ),
             ],

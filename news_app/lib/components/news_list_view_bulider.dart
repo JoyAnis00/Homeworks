@@ -1,11 +1,8 @@
-
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/components/news_list_view.dart';
-import 'package:news_app/models/articles_model.dart';
-
-import 'package:news_app/services/news_service.dart';
+import 'package:news_app/cubits/news_cubit/news_cubit.dart';
+import 'package:news_app/cubits/news_cubit/news_states.dart';
 
 class NewsListViewBuilder extends StatefulWidget {
   final String category;
@@ -16,38 +13,40 @@ class NewsListViewBuilder extends StatefulWidget {
 }
 
 class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
-
-  late Future<List<Article>> future;
-
   @override
   void initState() {
     super.initState();
-    future = NewsService(Dio()).getNews( widget.category);
+    BlocProvider.of<NewsCubit>(context).getNews(widget.category);
   }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder <List<Article>>(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return NewsListView(articles: snapshot.data !);
-        }else if (snapshot.hasError) {
-          return SliverToBoxAdapter(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: const Center(child: Text("No news available")),
-            ),
-          );
-        } else {
+    return BlocBuilder<NewsCubit, NewsStates>(
+      builder: (context, state) {
+        if (state is NewsLoadingState) {
           return SliverToBoxAdapter(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.6,
               child: const Center(child: CircularProgressIndicator()),
             ),
           );
+        } else if (state is NewsErrorState) {
+          return SliverToBoxAdapter(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: Center(child: Text(state.error)),
+            ),
+          );
+        } else if (state is NewsSuccessState) {
+          return NewsListView(articles: state.articles);
         }
+        return SliverToBoxAdapter(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: const Center(child: Text('No data available')),
+          ),
+        );
       },
     );
   }
 }
-

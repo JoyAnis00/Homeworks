@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/components/appbar_title.dart';
 import 'package:news_app/components/news_list_view_bulider.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -11,22 +12,7 @@ class CategoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'News ',
-              style: TextStyle(fontSize: 23, color: Colors.black),
-            ),
-            const Text(
-              'Cloud ',
-              style: TextStyle(
-                fontSize: 23,
-                color: Color.fromARGB(255, 255, 97, 6),
-              ),
-            ),
-          ],
-        ),
+        title: NewsCloudTitle()
       ),
       body: SafeArea(
         child: Padding(

@@ -3,11 +3,7 @@ import 'package:news_app/components/category_card.dart';
 import 'package:news_app/models/category_model.dart';
 
 class CategoryListView extends StatelessWidget {
- 
-
-  const CategoryListView({
-    super.key,
-  });
+  const CategoryListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +12,9 @@ class CategoryListView extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        itemBuilder: (context , index){
-           return CategoryCard(categoryModel:categories[index]);
-      }
+        itemBuilder: (context, index) {
+          return CategoryCard(categoryModel: categories[index]);
+        },
       ),
     );
   }

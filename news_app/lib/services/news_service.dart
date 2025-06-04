@@ -14,9 +14,7 @@ class NewsService {
       List<dynamic> articles = jsonData['results'];
       List<Article> news = [];
       for (var article in articles) {
-        news.add(
-          Article.fromJson(article),
-        );
+        news.add(Article.fromJson(article));
       }
       return news;
     } catch (e) {
